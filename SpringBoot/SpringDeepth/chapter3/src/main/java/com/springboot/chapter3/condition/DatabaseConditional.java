@@ -18,12 +18,14 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  */
 public class DatabaseConditional implements Condition {
 
-    @Override
-    /*
-     *
+
+    /**
+     * 数据库装配条件
      * @param context 条件上下文
-     * @param
+     * @param metadata 注释类型的元数据
+     * @return true装配Bean，否则不装配
      */
+    @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
         Environment env = context.getEnvironment();
         return env.containsProperty("database.driverName") && env.containsProperty("database.url")
