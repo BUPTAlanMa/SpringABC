@@ -3,9 +3,7 @@ package com.springboot.chapter3.main;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Service;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.springboot.chapter3"})

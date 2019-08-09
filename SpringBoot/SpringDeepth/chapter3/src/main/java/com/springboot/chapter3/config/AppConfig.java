@@ -26,11 +26,14 @@ public class AppConfig {
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Configuration
 @ComponentScan(value = "com.springboot.chapter3.*",
                 excludeFilters = {@Filter(classes = {Service.class})}) //扫描类AppConfig所在包及自子包
+@ImportResource(value = {"classpath:spring-other.xml"})
 public class AppConfig {
 	@Bean(name = "dataSource", destroyMethod = "close")
 	@Conditional(DatabaseConditional.class)
@@ -59,5 +62,44 @@ public class AppConfig {
 		}
 		return dataSource;
 	}
+
+	@Bean(name = "dataSource", destroyMethod = "close")
+	@Profile("dev")
+	/**
+	 * @Profile 根据不同环境（企业开发的开发环境，测试环境，准生产环境和生产环境），通常使用不同的数据库，则当
+	 * 我们切换不同环境时，需要同时切换不同的数据库。@Profile关键字就是为了方便地实现在各个环境之间切换。
+	 */
+	public DataSource getDevDataSource() {
+		Properties props = new Properties();
+		props.setProperty("driver", "com.mysql.jdbc.Driver");
+		props.setProperty("url", "jdbc:mysql://localhost:3306/chapter3");
+		props.setProperty("username", "root");
+		props.setProperty("password", "admin");
+		DataSource dataSource = null;
+		try {
+			dataSource = BasicDataSourceFactory.createDataSource(props);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dataSource;
+	}
+
+	@Bean(name = "dataSource", destroyMethod = "close")
+	@Profile("test")
+	public DataSource getTestDataSource() {
+		Properties props = new Properties();
+		props.setProperty("driver", "com.mysql.jdbc.Driver");
+		props.setProperty("url", "jdbc:mysql://localhost:3306/chapter3");
+		props.setProperty("username", "root");
+		props.setProperty("password", "admin");
+		DataSource dataSource = null;
+		try {
+			dataSource = BasicDataSourceFactory.createDataSource(props);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dataSource;
+	}
+
 
 }
