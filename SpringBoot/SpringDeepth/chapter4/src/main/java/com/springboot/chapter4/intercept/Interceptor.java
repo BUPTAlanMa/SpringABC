@@ -19,7 +19,7 @@ public interface Interceptor {
     public boolean before();
 
     // 事后方法
-    public boolean after();
+    public void after();
 
     /**
      * 取代原有事件方法
