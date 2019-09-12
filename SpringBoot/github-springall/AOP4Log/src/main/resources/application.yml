@@ -2,6 +2,7 @@ server:
   servlet:
     context-path: /web
 
+
 #数据库设置
 spring:
   datasource:
@@ -78,3 +79,4 @@ spring:
       mapper-locations: classpath:mapper/*.xml
       property:
         order: BEFORE
+
